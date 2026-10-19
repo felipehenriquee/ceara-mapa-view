@@ -1,6 +1,6 @@
 # Mapa do Ceará
 
-Interactive SVG map of the 184 municipalities of Ceará, built with Next.js (App Router), React and TypeScript. The map originally came from the **Jornal Ceará Hoje** website.
+Interactive SVG map of the 184 municipalities of Ceará, built with Next.js (App Router), React and TypeScript. The map was drawn by Felipe Henrique Morais Araujo in 2019–2020 and first used on the **Jornal Ceará Hoje** website.
 
 > Code, comments and docs are in English. Text shown to users and the site URLs (`/municipios`, `/cadastro`, `/entrar`) stay in Portuguese.
 
@@ -65,3 +65,7 @@ npm run build && npm start
 ## Reusing in other projects
 
 Use the `packages/ceara-map` library: publish it to npm (`npm publish -w ceara-map`) or install it straight from the folder. Props, tooltip and color variables are documented in [packages/ceara-map/README.md](packages/ceara-map/README.md).
+
+## License
+
+[MIT](LICENSE) © 2019-2026 Felipe Henrique Morais Araujo.

@@ -145,4 +145,6 @@ npm run dev        # build in watch mode
 npm run typecheck
 ```
 
-The municipality shapes come from the Ceará Hoje portal SVG; names and codes come from the IBGE localities API.
+## License
+
+[MIT](LICENSE) © 2019-2026 Felipe Henrique Morais Araujo. The map was drawn by the author in 2019–2020; municipality names and codes come from the IBGE localities API.
