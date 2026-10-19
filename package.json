@@ -1,0 +1,28 @@
+{
+  "name": "ceara-map-site",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "npm run build -w ceara-map && next dev",
+    "dev:lib": "npm run dev -w ceara-map",
+    "build": "npm run build -w ceara-map && next build",
+    "start": "next start",
+    "lint": "tsc --noEmit && npm run typecheck -w ceara-map"
+  },
+  "dependencies": {
+    "ceara-map": "*",
+    "mysql2": "^3.24.6",
+    "next": "^15.5.4",
+    "react": "19.1.1",
+    "react-dom": "19.1.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "typescript": "^5"
+  },
+  "workspaces": [
+    "packages/*"
+  ]
+}

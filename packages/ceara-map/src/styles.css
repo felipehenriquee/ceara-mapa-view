@@ -1,0 +1,107 @@
+/*
+ * ceara-map — default styles.
+ * To customize, override the --cm-* variables in a selector of your own (e.g. :root or .myMap).
+ */
+:root {
+    --cm-municipality-fill: #cbd5e1;
+    --cm-municipality-stroke: #ffffff;
+    --cm-municipality-stroke-width: 1;
+    --cm-municipality-highlight: #0f172a;
+    --cm-outline: #94a3b8;
+    --cm-outline-width: 2;
+    --cm-transition: .3s ease;
+
+    --cm-region-north: #3b82f6;
+    --cm-region-northwest: #14b8a6;
+    --cm-region-metropolitan: #8b5cf6;
+    --cm-region-jaguaribe: #84cc16;
+    --cm-region-southCentral: #ec4899;
+    --cm-region-south: #f97316;
+    --cm-region-sertoes: #eab308;
+
+    --cm-tooltip-background: #ffffff;
+    --cm-tooltip-text: #0f172a;
+    --cm-tooltip-text-muted: #64748b;
+    --cm-tooltip-border: #e2e8f0;
+    --cm-tooltip-radius: 12px;
+    --cm-tooltip-shadow: 0 12px 32px rgba(15, 23, 42, 0.18);
+    --cm-tooltip-image-background: #e8edf3;
+}
+
+.cm-map {
+    position: relative;
+}
+.cm-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.cm-municipality {
+    fill: var(--cm-municipality-fill);
+    stroke: var(--cm-municipality-stroke);
+    stroke-width: var(--cm-municipality-stroke-width);
+    stroke-linejoin: round;
+    transition: fill var(--cm-transition);
+}
+.cm-municipality[data-highlighted] {
+    fill: var(--cm-municipality-highlight);
+}
+.cm-target {
+    cursor: pointer;
+    outline: none;
+}
+.cm-target:focus-visible .cm-municipality {
+    stroke: var(--cm-municipality-highlight);
+    stroke-width: 3;
+}
+.cm-outline {
+    fill: none;
+    stroke: var(--cm-outline);
+    stroke-width: var(--cm-outline-width);
+    stroke-linejoin: round;
+}
+
+.cm-tooltip {
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 10;
+    width: var(--cm-tooltip-width, 220px);
+    overflow: hidden;
+    background-color: var(--cm-tooltip-background);
+    color: var(--cm-tooltip-text);
+    border: 1px solid var(--cm-tooltip-border);
+    border-radius: var(--cm-tooltip-radius);
+    box-shadow: var(--cm-tooltip-shadow);
+    pointer-events: none;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .15s ease, visibility .15s;
+}
+.cm-tooltip[data-visible] {
+    opacity: 1;
+    visibility: visible;
+}
+.cm-tooltip-image {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+    background-color: var(--cm-tooltip-image-background);
+}
+.cm-tooltip-body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    padding: 10px 12px;
+}
+.cm-tooltip-title {
+    font-size: 15px;
+    font-weight: 600;
+}
+.cm-tooltip-subtitle {
+    color: var(--cm-tooltip-text-muted);
+    font-size: 13px;
+    font-style: italic;
+}

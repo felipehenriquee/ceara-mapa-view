@@ -1,0 +1,243 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    margin: 0;
+    font-family: 'Roboto', Arial, sans-serif;
+    background-color: #f5f3ee;
+    color: #212121;
+}
+
+.pagina {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 32px 16px 64px;
+}
+.pagina h1 {
+    font-size: 22px;
+    margin-bottom: 24px;
+}
+
+/* ---- cartão do mapa ---- */
+.mapaCidadeCard {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    min-width: 0;
+    background-color: #fff;
+    border-radius: 20px;
+    padding: 20px 16px 28px;
+    box-shadow: 0 4px 24px rgba(33, 33, 33, 0.08);
+}
+.mapaCidadeToolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 0;
+}
+.mapaCidadeToolbarTitulo {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: #73937E;
+}
+.mapaCidadeCorpo {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+/* ---- legenda / filtro de região ---- */
+.legendaRegioes {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow-x: auto;
+    padding: 2px 2px 8px;
+    scrollbar-width: thin;
+}
+.legendaRegioes::-webkit-scrollbar {
+    height: 4px;
+}
+.legendaRegioes::-webkit-scrollbar-thumb {
+    background-color: #d6d1b1;
+    border-radius: 4px;
+}
+.regiaoBtn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 14px;
+    border: 1px solid #e0ded1;
+    border-radius: 20px;
+    background-color: #fff;
+    font-size: 13px;
+    white-space: nowrap;
+    flex-shrink: 0;
+    cursor: pointer;
+    transition: background-color .2s, border-color .2s, transform .1s;
+}
+.regiaoBtn:hover {
+    background-color: #FFF1EA;
+    border-color: #FF521B;
+}
+.regiaoBtn:active {
+    transform: scale(0.97);
+}
+.regiaoBtn.ativo {
+    background-color: #212121;
+    border-color: #212121;
+    color: #fff;
+}
+.regiaoCor {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    border: 1px solid #212121;
+    flex-shrink: 0;
+}
+
+/* ---- svg do mapa ---- */
+.mapSvg {
+    width: 100%;
+    background-color: #FFF1EA;
+    border-radius: 16px;
+    padding: 12px;
+    overflow: hidden;
+}
+.mapSvg svg {
+    display: block;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 420px;
+}
+
+.st0{fill:#EDD382;stroke:#212121;stroke-miterlimit:10;}
+.st1{fill:#26547C;stroke:#000000;stroke-miterlimit:10;}
+.st2{font-family:'BigNoodleTitling';}
+.st3{font-size:28.0364px;}
+.st4{fill:#26547C;}
+.st5{fill:#73937E;}
+.st6{fill:#FF521B;}
+.st7{fill:#EDD382;}
+.st8{fill:#ED9390;}
+.st9{fill:#6A041D;}
+.st10{fill:#7261A3;}
+.st11{fill:#D6D1B1;stroke:#212121;stroke-miterlimit:10;}
+.st12{fill:#ED9390;stroke:#212121;stroke-miterlimit:10;}
+.st13{fill:#6A041D;stroke:#212121;stroke-miterlimit:10;}
+.st14{fill:#73937E;stroke:#212121;stroke-miterlimit:10;}
+.st15{fill:#7261A3;stroke:#212121;stroke-miterlimit:10;}
+.st16{fill:#FF521B;stroke:#212121;stroke-miterlimit:10;}
+.st17{fill:none;stroke:#212121;stroke-width:4;stroke-miterlimit:10;}
+.st18{fill:#EDD382;stroke:#212121;stroke-miterlimit:10;}
+.st19{fill:blue;}
+.st20{fill:#1B998B;stroke:#212121;stroke-miterlimit:10;}
+.st-inativo{fill:#E5E5E5;stroke:#cfcfcf;stroke-miterlimit:10;opacity:0.6;}
+
+.linkCidade:hover {
+    cursor: pointer;
+}
+.linkCidade polygon,
+.linkCidade path,
+.linkCidade polyline,
+.linkCidade rect {
+    transition: fill .5s ease;
+}
+
+/* ---- busca de município ---- */
+.linksCidades {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+.barraPesquisa {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.iconeBusca {
+    position: absolute;
+    left: 14px;
+    color: #9a9a9a;
+    pointer-events: none;
+}
+.barraPesquisa input {
+    width: 100%;
+    padding: 12px 16px 12px 40px;
+    border: 1px solid #e0ded1;
+    border-radius: 12px;
+    font-size: 15px;
+    outline: none;
+    transition: border-color .2s, box-shadow .2s;
+}
+.barraPesquisa input:focus {
+    border-color: #73937E;
+    box-shadow: 0 0 0 3px rgba(115, 147, 126, 0.15);
+}
+.resultado {
+    max-height: 420px;
+    overflow-y: auto;
+    border: 1px solid #eee;
+    border-radius: 12px;
+    padding: 4px 8px;
+}
+.tabelaNomeCidade {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2px 12px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+.tabelaNomeCidade li {
+    font-size: 16px;
+}
+.tabelaNomeCidade li a {
+    display: block;
+    padding: 8px 8px;
+    border-radius: 8px;
+    text-decoration: none;
+    color: #333;
+    font-size: 13px;
+    transition: background-color .15s, color .15s;
+}
+.tabelaNomeCidade li a:hover {
+    background-color: #FFF1EA;
+    color: #FF521B;
+}
+.tabelaNomeCidade li.escondido {
+    display: none;
+}
+
+@media screen and (min-width: 992px) {
+    .mapaCidadeCard {
+        padding: 28px 32px 32px;
+    }
+    .mapaCidadeCorpo {
+        flex-direction: row;
+        align-items: flex-start;
+    }
+    .mapSvg {
+        width: 56%;
+        padding: 20px;
+    }
+    .mapSvg svg {
+        max-width: 100%;
+    }
+    .linksCidades {
+        width: 44%;
+    }
+    .tabelaNomeCidade li a {
+        font-size: 15px;
+    }
+    .legendaRegioes {
+        flex-wrap: wrap;
+        overflow-x: visible;
+    }
+    .regiaoBtn {
+        font-size: 12.5px;
+    }
+}
