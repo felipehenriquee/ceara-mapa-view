@@ -52,7 +52,7 @@ export function regionColor(region: RegionKey) {
 
 /** Strips accents and case, for searching: normalize("Crateús") === "crateus". */
 export function normalize(text: string) {
-  return text.normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase().trim();
+  return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().trim();
 }
 
 /** Same format as the map slugs; handy for matching names coming from other sources. */

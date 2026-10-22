@@ -81,6 +81,14 @@ function Shape({ municipality, className, highlighted, fill }: ShapeProps) {
   return <polygon {...props} points={municipality.geometry} />;
 }
 
+function isKeyboardFocus(element: Element) {
+  try {
+    return element.matches(":focus-visible");
+  } catch {
+    return true; // browsers without :focus-visible
+  }
+}
+
 function classNames(...names: (string | null | undefined | false)[]) {
   return names.filter(Boolean).join(" ");
 }
@@ -262,6 +270,9 @@ export function CearaMap({
             onMouseEnter: (event: MouseEvent<Element>) => enter(municipality, event),
             onMouseLeave: leave,
             onFocus: (event: FocusEvent<Element>) => {
+              // only keyboard focus: a tap focuses the municipality right before its click, and
+              // opening the tooltip here would turn that first tap into the "second tap" of first-tap
+              if (!isKeyboardFocus(event.currentTarget)) return;
               setHovered(municipality.slug);
               showTooltip(municipality.slug, { type: "element", element: event.currentTarget }, true);
             },
