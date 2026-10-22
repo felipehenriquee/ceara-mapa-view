@@ -39,10 +39,15 @@ jobs:
       # fails with a clear message when the secrets are missing or the database refuses the runner
       - name: Check database access
         run: node scripts/check-db.mjs
+      # 1200×630 JPEG previews from the city photos, used by the Open Graph tags
+      - name: Build link-preview images
+        run: node scripts/build-og-images.mjs
       - run: npm run build
         env:
           STATIC_EXPORT: "1"
           NEXT_PUBLIC_BASE_PATH: /${{ github.event.repository.name }}
+          # absolute address for the Open Graph tags (link previews)
+          NEXT_PUBLIC_SITE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
       - uses: actions/upload-pages-artifact@v5
         with:
           path: out

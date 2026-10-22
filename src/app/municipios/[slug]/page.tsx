@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { CearaMap } from "ceara-map";
 import { findCity, formatBirthday, formatNumber, summaryParagraphs } from "@/lib/cities";
 import { MUNICIPALITIES, REGIONS, findMunicipality, regionColor } from "@/lib/municipalities";
+import { SITE_NAME, cityPreviewImage, excerpt, previewMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ slug: string }> };
 
@@ -14,9 +15,28 @@ export function generateStaticParams() {
   return MUNICIPALITIES.map((m) => ({ slug: m.slug }));
 }
 
+// title, description and photo for link previews (WhatsApp, LinkedIn…); cities without a photo
+// get the default image
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const municipality = findMunicipality((await params).slug);
-  return { title: municipality ? `${municipality.name} · Mapa do Ceará` : "Mapa do Ceará" };
+  if (!municipality) return { title: SITE_NAME };
+
+  const city = await findCity(municipality);
+  const { name } = municipality;
+  const title = city?.nickname ? `${name} — ${city.nickname}` : name;
+  const description =
+    excerpt(summaryParagraphs(city?.summary ?? null)) ||
+    `${name}, ${REGIONS[municipality.region].name}: veja a cidade no mapa dos 184 municípios do Ceará.`;
+
+  return {
+    title: `${title} · ${SITE_NAME}`,
+    ...previewMetadata({
+      title,
+      description,
+      path: `municipios/${municipality.slug}/`,
+      image: cityPreviewImage(municipality.slug, name, city?.photo),
+    }),
+  };
 }
 
 export default async function MunicipalityPage({ params }: Props) {
