@@ -81,6 +81,8 @@ function mapSlugFor(row: CityRow) {
 }
 
 async function loadCities() {
+  // no database configured (e.g. the static GitHub Pages build): the map works without city data
+  if (!process.env.DB_HOST) return new Map<string, City>();
   const [rows] = await db().query<(CityRow & RowDataPacket)[]>(
     `SELECT id, nome, nomecru, apelido, resumo, area, limite, populacao, aniversario, mesorregiao, microrregiao, foto
        FROM cidades`,

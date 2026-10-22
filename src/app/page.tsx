@@ -1,4 +1,3 @@
-import Link from "next/link";
 import InteractiveMap from "@/components/InteractiveMap";
 import { listCityPreviews } from "@/lib/cities";
 
@@ -12,9 +11,6 @@ export default async function Home() {
     <main className="page">
       <div className="pageHeader">
         <h1>Mapa do Ceará</h1>
-        <Link href="/cadastro" className="primaryButton">
-          Cadastrar cidade
-        </Link>
       </div>
       <InteractiveMap previews={previews} />
     </main>

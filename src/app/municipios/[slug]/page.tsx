@@ -79,11 +79,6 @@ export default async function MunicipalityPage({ params }: Props) {
           ) : (
             <div className="notRegistered">
               <p className="emptyState">Ainda não há informações cadastradas sobre {municipality.name}.</p>
-              {!city && (
-                <Link href={`/cadastro?municipio=${municipality.slug}`} className="primaryButton">
-                  Cadastrar {municipality.name}
-                </Link>
-              )}
             </div>
           )}
         </div>

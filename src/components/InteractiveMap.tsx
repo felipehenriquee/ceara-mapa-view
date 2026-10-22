@@ -10,6 +10,7 @@ import {
   REGION_ORDER,
   REGIONS,
   municipalityHref,
+  withBasePath,
   normalize,
   regionColor,
   type Municipality,
@@ -59,15 +60,18 @@ export default function InteractiveMap({ previews }: { previews: Record<string, 
               {REGIONS[key].name}
             </button>
           ))}
-          <button
-            type="button"
-            className={`regionButton${filter === "registered" ? " active" : ""}`}
-            aria-pressed={filter === "registered"}
-            onClick={() => toggle("registered")}
-          >
-            <span className="regionSwatch" style={{ backgroundColor: "var(--registered)" }} />
-            Com cadastro ({registered.size})
-          </button>
+          {/* without a database (e.g. the static build) there is nothing to filter */}
+          {registered.size > 0 && (
+            <button
+              type="button"
+              className={`regionButton${filter === "registered" ? " active" : ""}`}
+              aria-pressed={filter === "registered"}
+              onClick={() => toggle("registered")}
+            >
+              <span className="regionSwatch" style={{ backgroundColor: "var(--registered)" }} />
+              Com cadastro ({registered.size})
+            </button>
+          )}
         </div>
       </div>
 
@@ -76,7 +80,8 @@ export default function InteractiveMap({ previews }: { previews: Record<string, 
           <CearaMap
             getFill={getFill}
             highlighted={hoveredInList}
-            getHref={(m) => municipalityHref(m.slug)}
+            // a raw <a> inside the SVG: unlike next/link, it doesn't add the base path by itself
+            getHref={(m) => withBasePath(municipalityHref(m.slug))}
             onClick={(m, event) => {
               event.preventDefault();
               router.push(municipalityHref(m.slug));
