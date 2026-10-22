@@ -4,7 +4,7 @@ Interactive SVG map of the 184 municipalities of Ceará, built with Next.js (App
 
 > Code, comments and docs are in English. Text shown to users and the site URLs (`/municipios`, `/cadastro`, `/entrar`) stay in Portuguese.
 
-> **Branch `github-pages`:** static test version published on GitHub Pages by `.github/workflows/pages.yml` (`STATIC_EXPORT=1`, base path = repository name). Without a server it has no database and no registration/login: the map, filters, search and the 184 municipality pages work, without city data.
+> **Branch `github-pages`:** static test version published on GitHub Pages by `.github/workflows/pages.yml` (`STATIC_EXPORT=1`, base path = repository name). City data is read from the database at build time (repository secrets `DB_HOST`, `DB_PORT`, `DB_USER`, `DB_PASS`, `DB_NAME`) and baked into the pages; re-run the workflow to refresh it. Registration and login need a server, so they are not in this build.
 
 ## Features
 

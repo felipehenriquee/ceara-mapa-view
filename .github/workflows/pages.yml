@@ -1,5 +1,9 @@
-# Builds the static version of the site (no database, no registration) and publishes it on
-# GitHub Pages at https://<user>.github.io/<repository>/ on every push to the github-pages branch.
+# Builds the static version of the site and publishes it on GitHub Pages at
+# https://<user>.github.io/<repository>/ on every push to the github-pages branch.
+#
+# City data is read from the database at build time (a snapshot; re-run to refresh), using the
+# repository secrets DB_HOST, DB_PORT, DB_USER, DB_PASS and DB_NAME. Registration and login need a
+# server, so they are not part of this build.
 name: Deploy to GitHub Pages
 
 on:
@@ -19,6 +23,12 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      DB_HOST: ${{ secrets.DB_HOST }}
+      DB_PORT: ${{ secrets.DB_PORT }}
+      DB_USER: ${{ secrets.DB_USER }}
+      DB_PASS: ${{ secrets.DB_PASS }}
+      DB_NAME: ${{ secrets.DB_NAME }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -26,6 +36,9 @@ jobs:
           node-version: 20
           cache: npm
       - run: npm ci
+      # fails with a clear message when the secrets are missing or the database refuses the runner
+      - name: Check database access
+        run: node scripts/check-db.mjs
       - run: npm run build
         env:
           STATIC_EXPORT: "1"

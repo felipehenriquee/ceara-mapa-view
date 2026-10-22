@@ -6,7 +6,8 @@ const globalForPool = globalThis as unknown as { mysqlPool?: mysql.Pool };
 export function db() {
   globalForPool.mysqlPool ??= mysql.createPool({
     host: process.env.DB_HOST,
-    port: Number(process.env.DB_PORT ?? 3306),
+    // `||`, not `??`: a missing CI secret arrives as an empty string
+    port: Number(process.env.DB_PORT || 3306),
     user: process.env.DB_USER,
     password: process.env.DB_PASS,
     database: process.env.DB_NAME,
